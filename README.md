@@ -28,131 +28,40 @@
 * Spring Boot
 * JPA
 * Hibernate
+* JUnit
 * H2 Database
 * Lombok
 
+## 📮 Postman Api Collection 
+[Api Collection](https://www.mediafire.com/file/7i4i44on527ps1k/TallerMecanico.postman_collection.json/file)
 
 ## 📚 API Reference
 
-#### • Get Client by Email
+API                       | Description         | Parameters
+--------------------------|---------------------|--------------
+GET /cliente/{email}        | Get Client by Email    | `email`: Email associated with the Client to fetch
+GET /vehiculo/{patente}    | Get Vehicle by Plate number | `patente`: Plate number of the Vehicle to fetch
 
-```
-  GET /cliente/{email}
-```
+<br/>
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `email`      | `string` |  Email associated with the Client to fetch |
+API                       | Description         | Parameters
+--------------------------|---------------------|--------------
+POST /cliente/       | Register a new Client to the Database    | **Note: adittionally, you can register a vehicle to this client with the same Request. if you do, the vehicle gets saved to the database and it gets linked to this client.**
+POST /cliente/{email}/vehiculonuevo   | Register a new Vehicle to the Database and link it to the specified client | `email`: Email associated with the Client to link this vehicle to.
+POST /mecanico/    | Register a new Mechanic to the Database | 
+POST /empleado/   | Register a new Employee to the Database | 
+POST /trabajo/{patente}/{id}   | Register a new Employee to the Database | •`patente`: Plate number of the Vehicle to link to this work order <br/> •`id`: Id of the employee of type 'Recepcionista' to link to this work order
+POST /trabajo/?mecanico_id={id_mec}&trabajo_id={id_ot}   | Register a new Labor | `id`: Id of a Mechanic to assign to this Labor Id of the Work order to assign this Labor to
 
-#### • Get Vehicle by Plate number
+<br/>
 
-```
-  GET /vehiculo/{patente}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `patente`      | `string` | Plate number of the Vehicle to fetch |
-
----
-
-#### • Register a new Client to the Database
-
-```
-  POST /cliente/
-```
-Note: adittionally, you can register a vehicle to this client with the same Request. if you do, the vehicle gets saved to the database and it gets linked to this client.
-
-#### • Register a new Vehicle to the Database and link it to the specified client
-
-```
-  POST /cliente/{email}/vehiculonuevo
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `email`      | `string` |  Email associated with the Client to link this vehicle to |
-
-#### • Register a new Mechanic to the Database
-
-```
-  POST /mecanico/
-```
-#### • Register a new Employee to the Database
-
-```
-  POST /empleado/
-```
-#### • Register a new Work order
-
-```
-  POST /trabajo/{patente}/{id}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `patente`      | `string` | Plate number of the Vehicle to link to this work order |
-| `id`      | `Long` |  Id of the employee of type `Recepcionista` to link to this work order |
-
-#### • Register a new Labor
-
-```
-  POST /trabajo/?mecanico_id={id_mec}&trabajo_id={id_ot}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id_mec`      | `Long` | Id of a Mechanic to assign to this Labor  |
-| `id_ot`      | `Long` |  Id of the Work order to assign this Labor to |
-
----
-
-#### • Complete Labor
-
-```
-  PUT /manodeobra/{id}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `Long` | Id of the Labor to update |
-
-#### • Change Work order's status to 'Repairing'
-
-```
-  POST /trabajo/{id}/enreparacion
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `Long` | Id of the Work order to update |
-
-#### • Change Work order's status to 'Ready for Payment'.
-
-```
-  POST /trabajo/{id_lab}/parafacturar/{quant}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id_lab`      | `Long` | Id of the Work order to update |
-| `quant`      | `int` | quantity of replacement parts |
-
-#### • Change Work order's status to 'Paid'
-
-```
-  POST /trabajo/{id}/facturado
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `Long` | Id of the Work order to update |
-
-#### • Change Work order's status to 'Closed'
-
-```
-  POST /trabajo/{id}/cerrar/?admin_id={id_adm}&forma_pago={ptype}&tarjeta={card}&cuotas={paym}
-```
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `Long` | Id of the Work order to update |
-| `id_adm`      | `Long` | Id of the employee of type `Administrativo` to link to this Work order |
-| `ptype`      | `string` | payment type |
-| `card`      | `string` | card type |
-| `paym`      | `int` | Amount of payment installments |
+API                       | Description         | Parameters
+--------------------------|---------------------|--------------
+PUT /manodeobra/{id}       | Complete Labor    |  `id`: id of the Labor to update
+POST /trabajo/{id}/enreparacion   | Change Work order's status to 'Repairing' | `id`: id of the Work order to update
+POST /trabajo/{id_lab}/parafacturar/{quant}   | Change Work order's status to 'Ready for Payment' | •`id`: id of the Work order to update <br/>•`quant`: quantity of replacement parts
+POST /trabajo/{id}/facturado   | Change Work order's status to 'Paid' | `id`: id of the Work order to update
+POST /trabajo/{id}/cerrar/?admin_id={id_adm}&forma_pago={ptype}&tarjeta={card}&cuotas={paym}  | Change Work order's status to 'Closed' | •`id`: id of the Work order to update <br/>•`id`: id of the employee of type 'Administrativo' to link to this Work order <br/>•`ptype`: payment type <br/>•`card`: card type <br/>•`paym`: Amount of payment installments
 
 
 ## 💬 Feedback
